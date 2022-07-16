@@ -11,6 +11,7 @@ import 'package:best_aid_customer/online_doctors/gp_doctor.dart';
 import 'package:best_aid_customer/online_doctors/sp_doctors.dart';
 import 'package:best_aid_customer/utils/data.dart';
 import 'package:best_aid_customer/widgets/build_image.dart';
+import 'package:best_aid_customer/widgets/doctors_online.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
@@ -472,6 +473,7 @@ class _homeState extends State<home> {
               //   ),
               // ),           SizedBox(height: 20,),
 
+
               Container(
                 // Here the height of the container is 45% of our total height
 
@@ -585,7 +587,42 @@ class _homeState extends State<home> {
                           thickness: 10,
                         ),
                         SizedBox(
-                          height: height / 40,
+                          height: height *0.01,
+                        ),
+
+                        //Doctors Online
+                        Padding(
+                          padding:
+                          const EdgeInsets.only(left: 15.0, right: 15),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Doctors online",
+                                style: GoogleFonts.lato(
+                                    color: Colors.grey,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              SizedBox(
+                                height: height *0.005,
+                              ),
+                              Container(
+                                height: height * 0.1,
+                                width: double.infinity,
+                                child: doctorsOnline(height: height, width: width),
+                              ),
+                            ],
+                          ),
+                        ),
+
+
+                        SizedBox(
+                          height: height *0.01,
+                        ),
+                        Divider(
+                          color: Colors.grey[200],
+                          thickness: 10,
                         ),
                         Align(
                             alignment: Alignment.topLeft,
@@ -597,7 +634,7 @@ class _homeState extends State<home> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Department's",
+                                    "Departments",
                                     style: GoogleFonts.lato(
                                         color: Colors.grey,
                                         fontSize: 18,
@@ -1343,236 +1380,238 @@ class _homeState extends State<home> {
                           color: Colors.grey[200],
                           thickness: 10,
                         ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.only(left: 15.0, right: 15),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Hospitals",
-                                  style: GoogleFonts.lato(
-                                      color: Colors.grey,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) => view_all_medical(),
-                                      ),
-                                    );
-                                    // Fluttertoast.showToast(
-                                    //
-                                    //     msg: "Service will available very soon!!!",
-                                    //     toastLength: Toast.LENGTH_LONG,
-                                    //     gravity: ToastGravity.BOTTOM,
-                                    //     timeInSecForIosWeb: 1,
-                                    //     backgroundColor: Colors.black54,
-                                    //     textColor: Colors.white,
-                                    //     fontSize: 16.0);
-                                  },
-                                  child: Text(
-                                    "View All",
-                                    style: GoogleFonts.lato(
-                                      color: Color(0xff0E6B50),
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          constraints: BoxConstraints(),
-                          child: FutureBuilder(
-                            future: medical_home,
-                            builder: (_, AsyncSnapshot snapshot) {
-                              print(snapshot.data);
-                              switch (snapshot.connectionState) {
-                                case ConnectionState.waiting:
-                                  return SizedBox(
-                                    width: MediaQuery.of(context).size.width,
-                                    height:
-                                        MediaQuery.of(context).size.height / 5,
-                                    child: Shimmer.fromColors(
-                                      baseColor: Colors.grey[300],
-                                      highlightColor: Colors.grey[100],
-                                      child: ListView.builder(
-                                        itemBuilder: (_, __) => Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 8.0),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Container(
-                                                width: 48.0,
-                                                height: 48.0,
-                                                color: Colors.white,
-                                              ),
-                                              const Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 8.0),
-                                              ),
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    Container(
-                                                      width: double.infinity,
-                                                      height: 8.0,
-                                                      color: Colors.white,
-                                                    ),
-                                                    const Padding(
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              vertical: 2.0),
-                                                    ),
-                                                    Container(
-                                                      width: double.infinity,
-                                                      height: 8.0,
-                                                      color: Colors.white,
-                                                    ),
-                                                    const Padding(
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                              vertical: 2.0),
-                                                    ),
-                                                    Container(
-                                                      width: 40.0,
-                                                      height: 8.0,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        itemCount: 6,
-                                      ),
-                                    ),
-                                  );
-                                default:
-                                  if (snapshot.hasError) {
-                                    Text('Error: ${snapshot.error}');
-                                  } else {
-                                    return snapshot.hasData
-                                        ? Container(
-                                            child: GridView.builder(
-                                                physics:
-                                                    NeverScrollableScrollPhysics(),
-                                                shrinkWrap: true,
-                                                gridDelegate:
-                                                    SliverGridDelegateWithMaxCrossAxisExtent(
-                                                        maxCrossAxisExtent: 200,
-                                                        childAspectRatio: 4 / 3,
-                                                        crossAxisSpacing: 7,
-                                                        mainAxisSpacing: 10),
-                                                itemCount: snapshot.data.length,
-                                                itemBuilder:
-                                                    (BuildContext ctx, index) {
-                                                  return Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: InkWell(
-                                                      onTap: () {
-                                                        Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder: (_) =>
-                                                                doctors(
-                                                              id: snapshot
-                                                                  .data[index]
-                                                                      ['id']
-                                                                  .toString(),
-                                                            ),
-                                                          ),
-                                                        );
-                                                        // Fluttertoast.showToast(
-                                                        //
-                                                        //     msg: "Service will available very soon!!!",
-                                                        //     toastLength: Toast.LENGTH_LONG,
-                                                        //     gravity: ToastGravity.BOTTOM,
-                                                        //     timeInSecForIosWeb: 1,
-                                                        //     backgroundColor: Colors.black54,
-                                                        //     textColor: Colors.white,
-                                                        //     fontSize: 16.0);
-                                                      },
-                                                      child: Container(
-                                                        width: width / 2,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                          color:
-                                                              Color(0xffD8F2D8),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Icon(
-                                                                Icons.class_,
-                                                                color: Color(
-                                                                    0xff0E6B50),
-                                                              ),
-                                                              Flexible(
-                                                                child: Text(
-                                                                  snapshot.data[
-                                                                          index]
-                                                                      ['name'],
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    color: Color(
-                                                                        0xff0E6B50),
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                    fontSize:
-                                                                        16,
-                                                                  ),
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  );
-                                                }),
-                                          )
-                                        : Text('No data');
-                                  }
-                              }
-                              return CircularProgressIndicator();
-                            },
-                          ),
-                        ),
+                        // Align(
+                        //   alignment: Alignment.topLeft,
+                        //   child: Padding(
+                        //     padding:
+                        //         const EdgeInsets.only(left: 15.0, right: 15),
+                        //     child: Row(
+                        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //       children: [
+                        //         Text(
+                        //           "Hospitals",
+                        //           style: GoogleFonts.lato(
+                        //               color: Colors.grey,
+                        //               fontSize: 18,
+                        //               fontWeight: FontWeight.w700),
+                        //         ),
+                        //         InkWell(
+                        //           onTap: () {
+                        //             Navigator.push(
+                        //               context,
+                        //               MaterialPageRoute(
+                        //                 builder: (_) => view_all_medical(),
+                        //               ),
+                        //             );
+                        //             // Fluttertoast.showToast(
+                        //             //
+                        //             //     msg: "Service will available very soon!!!",
+                        //             //     toastLength: Toast.LENGTH_LONG,
+                        //             //     gravity: ToastGravity.BOTTOM,
+                        //             //     timeInSecForIosWeb: 1,
+                        //             //     backgroundColor: Colors.black54,
+                        //             //     textColor: Colors.white,
+                        //             //     fontSize: 16.0);
+                        //           },
+                        //           child: Text(
+                        //             "View All",
+                        //             style: GoogleFonts.lato(
+                        //               color: Color(0xff0E6B50),
+                        //               fontWeight: FontWeight.w900,
+                        //               fontSize: 14,
+                        //             ),
+                        //           ),
+                        //         )
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        // Container(
+                        //   constraints: BoxConstraints(),
+                        //   child: FutureBuilder(
+                        //     future: medical_home,
+                        //     builder: (_, AsyncSnapshot snapshot) {
+                        //       print(snapshot.data);
+                        //       switch (snapshot.connectionState) {
+                        //         case ConnectionState.waiting:
+                        //           return SizedBox(
+                        //             width: MediaQuery.of(context).size.width,
+                        //             height:
+                        //                 MediaQuery.of(context).size.height / 5,
+                        //             child: Shimmer.fromColors(
+                        //               baseColor: Colors.grey[300],
+                        //               highlightColor: Colors.grey[100],
+                        //               child: ListView.builder(
+                        //                 itemBuilder: (_, __) => Padding(
+                        //                   padding: const EdgeInsets.only(
+                        //                       bottom: 8.0),
+                        //                   child: Row(
+                        //                     crossAxisAlignment:
+                        //                         CrossAxisAlignment.start,
+                        //                     children: <Widget>[
+                        //                       Container(
+                        //                         width: 48.0,
+                        //                         height: 48.0,
+                        //                         color: Colors.white,
+                        //                       ),
+                        //                       const Padding(
+                        //                         padding: EdgeInsets.symmetric(
+                        //                             horizontal: 8.0),
+                        //                       ),
+                        //                       Expanded(
+                        //                         child: Column(
+                        //                           crossAxisAlignment:
+                        //                               CrossAxisAlignment.start,
+                        //                           children: <Widget>[
+                        //                             Container(
+                        //                               width: double.infinity,
+                        //                               height: 8.0,
+                        //                               color: Colors.white,
+                        //                             ),
+                        //                             const Padding(
+                        //                               padding:
+                        //                                   EdgeInsets.symmetric(
+                        //                                       vertical: 2.0),
+                        //                             ),
+                        //                             Container(
+                        //                               width: double.infinity,
+                        //                               height: 8.0,
+                        //                               color: Colors.white,
+                        //                             ),
+                        //                             const Padding(
+                        //                               padding:
+                        //                                   EdgeInsets.symmetric(
+                        //                                       vertical: 2.0),
+                        //                             ),
+                        //                             Container(
+                        //                               width: 40.0,
+                        //                               height: 8.0,
+                        //                               color: Colors.white,
+                        //                             ),
+                        //                           ],
+                        //                         ),
+                        //                       )
+                        //                     ],
+                        //                   ),
+                        //                 ),
+                        //                 itemCount: 6,
+                        //               ),
+                        //             ),
+                        //           );
+                        //         default:
+                        //           if (snapshot.hasError) {
+                        //             Text('Error: ${snapshot.error}');
+                        //           } else {
+                        //             return snapshot.hasData
+                        //                 ? Container(
+                        //                     child: GridView.builder(
+                        //                         physics:
+                        //                             NeverScrollableScrollPhysics(),
+                        //                         shrinkWrap: true,
+                        //                         gridDelegate:
+                        //                             SliverGridDelegateWithMaxCrossAxisExtent(
+                        //                                 maxCrossAxisExtent: 200,
+                        //                                 childAspectRatio: 4 / 3,
+                        //                                 crossAxisSpacing: 7,
+                        //                                 mainAxisSpacing: 10),
+                        //                         itemCount: snapshot.data.length,
+                        //                         itemBuilder:
+                        //                             (BuildContext ctx, index) {
+                        //                           return Padding(
+                        //                             padding:
+                        //                                 const EdgeInsets.all(
+                        //                                     8.0),
+                        //                             child: InkWell(
+                        //                               onTap: () {
+                        //                                 Navigator.push(
+                        //                                   context,
+                        //                                   MaterialPageRoute(
+                        //                                     builder: (_) =>
+                        //                                         doctors(
+                        //                                       id: snapshot
+                        //                                           .data[index]
+                        //                                               ['id']
+                        //                                           .toString(),
+                        //                                     ),
+                        //                                   ),
+                        //                                 );
+                        //                                 // Fluttertoast.showToast(
+                        //                                 //
+                        //                                 //     msg: "Service will available very soon!!!",
+                        //                                 //     toastLength: Toast.LENGTH_LONG,
+                        //                                 //     gravity: ToastGravity.BOTTOM,
+                        //                                 //     timeInSecForIosWeb: 1,
+                        //                                 //     backgroundColor: Colors.black54,
+                        //                                 //     textColor: Colors.white,
+                        //                                 //     fontSize: 16.0);
+                        //                               },
+                        //                               child: Container(
+                        //                                 width: width / 2,
+                        //                                 decoration:
+                        //                                     BoxDecoration(
+                        //                                   borderRadius:
+                        //                                       BorderRadius
+                        //                                           .circular(10),
+                        //                                   color:
+                        //                                       Color(0xffD8F2D8),
+                        //                                 ),
+                        //                                 child: Padding(
+                        //                                   padding:
+                        //                                       const EdgeInsets
+                        //                                           .all(8.0),
+                        //                                   child: Column(
+                        //                                     crossAxisAlignment:
+                        //                                         CrossAxisAlignment
+                        //                                             .start,
+                        //                                     mainAxisAlignment:
+                        //                                         MainAxisAlignment
+                        //                                             .start,
+                        //                                     children: [
+                        //                                       Icon(
+                        //                                         Icons.class_,
+                        //                                         color: Color(
+                        //                                             0xff0E6B50),
+                        //                                       ),
+                        //                                       Flexible(
+                        //                                         child: Text(
+                        //                                           snapshot.data[
+                        //                                                   index]
+                        //                                               ['name'],
+                        //                                           style:
+                        //                                               GoogleFonts
+                        //                                                   .lato(
+                        //                                             color: Color(
+                        //                                                 0xff0E6B50),
+                        //                                             fontWeight:
+                        //                                                 FontWeight
+                        //                                                     .w600,
+                        //                                             fontSize:
+                        //                                                 16,
+                        //                                           ),
+                        //                                         ),
+                        //                                       )
+                        //                                     ],
+                        //                                   ),
+                        //                                 ),
+                        //                               ),
+                        //                             ),
+                        //                           );
+                        //                         }),
+                        //                   )
+                        //                 : Text('No data');
+                        //           }
+                        //       }
+                        //       return CircularProgressIndicator();
+                        //     },
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
                 ),
               ),
+
+
             ],
           ),
         ),
