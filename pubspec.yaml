@@ -87,18 +87,8 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - images/vec.jpg
-    - images/rff.gif
-    - images/bg.png
-    - images/f.gif
-    - images/ilustration2.png
-    - images/splas.gif
-    - images/floatButton.png
-    - images/no.gif
-    - images/OTP Image.svg
-    - images/Rotate_Logo.gif
-    - images/w.png
-    - images/Rotate_Text.gif
+    - images/
+    - images/promotion/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

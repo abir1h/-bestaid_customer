@@ -1,11 +1,10 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../MainHome.dart';
 import '../login_screen.dart';
-
-
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key key}) : super(key: key);
@@ -17,6 +16,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   var token;
+
   void isLoogedIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString('token');
@@ -46,43 +46,56 @@ class _SplashScreenState extends State<SplashScreen>
     super.dispose();
     _controller.dispose();
   }
+
   startTimer() async {
-    var duration = Duration(milliseconds:5500);
+    var duration = Duration(milliseconds: 5500);
     return new Timer(duration, route);
   }
-  Naviagate(){
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>MainHome()));
-  }Naviagatelogin(){
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>login_screen()));
-  }
-  route() {
-    token==null?Naviagatelogin():Naviagate();
+
+  Naviagate() {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (_) => MainHome()));
   }
 
+  Naviagatelogin() {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (_) => login_screen()));
+  }
+
+  route() {
+    token == null ? Naviagatelogin() : Naviagate();
+  }
 
   @override
   Widget build(BuildContext context) {
-    var width=MediaQuery.of(context).size.width;
-    var height=MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
-
-        backgroundColor:Colors.white,
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height/3.5,),
-              Center(child: Align(alignment:Alignment.center,child: Column(
-                children: [
-                  Image.asset('images/Rotate_Text.gif',height: 300,width: 300,),
-                ],
-              ))),
-
-            ],
-          ),
-        )
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 3.5,
+            ),
+            Center(
+              child: Align(
+                alignment: Alignment.center,
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'images/Rotate_Text.gif',
+                      height: 300,
+                      width: 300,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
-
